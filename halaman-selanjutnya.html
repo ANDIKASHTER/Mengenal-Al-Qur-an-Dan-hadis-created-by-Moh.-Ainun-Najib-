@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu Pembelajaran</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(-45deg, white, rgba(255,255,255,0));
+      opacity: 0;
+      transform: rotate(-45deg);
+      animation: shoot 5s linear infinite;
+    }
+
+    @keyframes shoot {
+      0% { top: -10%; left: 100%; opacity: 0; }
+      10% { opacity: 1; }
+      100% { top: 100%; left: -10%; opacity: 0; }
+    }
+
+    .menu-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      color: gold;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+      z-index: 1;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .menu-container h2 {
+      margin-bottom: 30px;
+      font-size: 1.5em;
+    }
+
+    .menu-item {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      background: gold;
+      color: black;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px gold;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.5s forwards;
+    }
+
+    .menu-item:hover {
+      background-color: #ffe066;
+      box-shadow: 0 0 20px gold;
+      transform: scale(1.03);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bintang -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Bintang jatuh -->
+  <div class="shooting-star" style="top:10%; left:90%; animation-delay: 1s;"></div>
+  <div class="shooting-star" style="top:20%; left:80%; animation-delay: 3s;"></div>
+  <div class="shooting-star" style="top:30%; left:70%; animation-delay: 5s;"></div>
+
+  <!-- Konten Menu -->
+<div class="menu-container">
+  <h2>Silakan Pilih Menu</h2>
+  <button class="menu-item" style="animation-delay: 0.3s;" onclick="location.href='materi-quran.html'">Materi Al-Qur'an</button>
+  <button class="menu-item" style="animation-delay: 0.6s;" onclick="location.href='materi-hadis.html'">Materi Hadis</button>
+  <button class="menu-item" style="animation-delay: 0.9s;" onclick="location.href='quran.html'">Al-Qur'an</button>
+  <button class="menu-item" style="animation-delay: 1.2s;" onclick="location.href='hadis.html'">Hadis</button>
+  <button class="menu-item" style="animation-delay: 1.5s;" onclick="location.href='evaluasi.html'">Evaluasi</button>
+  <button class="menu-item" style="animation-delay: 1.8s;" onclick="location.href='murottal.html'">Murottal</button>
+</div>
+
+  <script>
+    // Bintang statis
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDuration = `${1 + Math.random() * 3}s`;
+      starsContainer.appendChild(star);
+    }
+  </script>
+
+</body>
+</html>

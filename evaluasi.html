@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kuis Al-Qur'an dan Hadis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            color: #fff;
+            margin: 0; 
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border: 2px solid gold;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: gold;
+        }
+        input[type=text], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+        }
+        input[type=radio] {
+            margin-right: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffd700; /* Gold color */
+            border: none;
+            border-radius: 8px;
+            color: #000; /* Black text */
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ffc107; /* Darker gold on hover */
+        }
+        .hidden {
+            display: none;
+        }
+        .question-box {
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .result {
+            white-space: pre-wrap;
+            background: rgba(0, 255, 0, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="page0">
+            <h1>Kuis Al-Qur'an dan Hadis</h1>
+            <h3>Isi identitas terlebih dahulu</h3>
+            <input type="text" id="nama" placeholder="Nama Lengkap" />
+            <input type="text" id="nim" placeholder="NIM" />
+            <input type="text" id="kelas" placeholder="Kelas" />
+            <button onclick="startQuiz()">Mulai Kuis</button>
+        </div>
+
+        <div id="quiz" class="hidden">
+            <div id="questionContainer"></div>
+            <button onclick="nextQuestion()">Lanjut</button>
+        </div>
+
+        <div id="icePage" class="hidden">
+            <h2>Ice Breaking!</h2>
+            <div class="question-box">
+                <p>Aku adalah kitab suci yang diturunkan oleh Allah SWT sebagai petunjuk hidup bagi umat manusia. Siapakah aku?</p>
+                <input type="text" id="iceAnswer" placeholder="Jawabanmu..." />
+            </div>
+            <button onclick="showEssay()">Selesai</button>
+        </div>
+
+        <div id="essayPage" class="hidden">
+            <h2>Soal Essay</h2>
+            <div class="question-box">
+                <p>1. Jelaskan pengertian Al-Qur’an menurut istilah!</p>
+                <textarea id="essay1" rows="3" placeholder="Jawabanmu..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>2. Sebutkan empat fungsi hadis terhadap Al-Qur’an!</p>
+                <textarea id="essay2" rows="3" placeholder="Jawabanmu..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>3. Apa saja syarat riwayat disebut mutawatir dalam definisi Al-Qur’an?</p>
+                <textarea id="essay3" rows="3" placeholder="Jawabanmu..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>4. Sebutkan tiga nama lain dari Al-Qur’an beserta fungsinya!</p>
+                <textarea id="essay4" rows="3" placeholder="Jawabanmu..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>5. Mengapa Al-Qur’an disebut sebagai kitab penyempurna kitab-kitab sebelumnya?</p>
+                <textarea id="essay5" rows="3" placeholder="Jawabanmu..."></textarea>
+            </div>
+            <button onclick="showResult()">Selesai</button>
+        </div>
+
+        <div id="resultPage" class="hidden">
+            <h2>Hasil Kuis</h2>
+            <div class="result" id="resultText"></div>
+        </div>
+    </div>
+
+<script>
+    const questions = [
+        {
+            text: "Menurut Quraish Shihab, kata 'Al-Qur’an' berasal dari kata kerja qara’a yang berarti...",
+            options: ["Menulis", "Membaca", "Menghafal", "Merenung"],
+            correct: "Membaca"
+        },
+        {
+            text: "Salah satu keistimewaan Al-Qur’an menurut Quraish Shihab adalah...",
+            options: ["Susah dipelajari", "Sulit dihafal", "Redaksinya tidak sistematis", "Mudah diingat oleh berbagai usia"],
+            correct: "Mudah diingat oleh berbagai usia"
+        },
+        {
+            text: "Berikut ini yang bukan merupakan pengertian istilah Al-Qur’an menurut ulama adalah...",
+            options: ["Kalamullah", "Ucapan Nabi Muhammad", "Mukjizat", "Dibaca sebagai ibadah"],
+            correct: "Ucapan Nabi Muhammad"
+        },
+        {
+            text: "Yang dimaksud dengan mutawatir dalam konteks Al-Qur’an adalah...",
+            options: ["Diriwayatkan oleh satu orang", "Diragukan keasliannya", "Diriwayatkan oleh banyak orang yang terpercaya", "Hadis lemah yang dibenarkan"],
+            correct: "Diriwayatkan oleh banyak orang yang terpercaya"
+        },
+        {
+            text: "Nama lain Al-Qur’an yang menunjukkan fungsinya sebagai pembeda adalah...",
+            options: ["Al-Kitab", "Al-Furqan", "Al-Huda", "Asy-Syifa"],
+            correct: "Al-Furqan"
+        },
+        {
+            text: "Urutan prioritas sumber hukum Islam yang benar adalah...",
+            options: ["Hadis – Ijma – Qiyas – Al-Qur’an", "Al-Qur’an – Hadis – Ijma – Qiyas", "Qiyas – Ijma – Hadis – Al-Qur’an", "Ijma – Qiyas – Al-Qur’an – Hadis"],
+            correct: "Al-Qur’an – Hadis – Ijma – Qiyas"
+        },
+        {
+            text: "Dalam QS. al-Maidah: 48, fungsi Al-Qur’an adalah sebagai...",
+            options: ["Pembawa berita", "Penyempurna dan hakim atas kitab sebelumnya", "Penyebab pertentangan", "Kitab sejarah"],
+            correct: "Penyempurna dan hakim atas kitab sebelumnya"
+        },
+        {
+            text: "Fungsi hadis dalam menjelaskan ayat Al-Qur’an yang bersifat global disebut...",
+            options: ["Pembatasan", "Penetapan", "Penjelasan dan perincian", "Penguatan"],
+            correct: "Penjelasan dan perincian"
+        },
+        {
+            text: "Contoh hadis yang menetapkan hukum yang tidak disebutkan dalam Al-Qur’an adalah...",
+            options: ["Perintah shalat", "Perintah puasa", "Haram memakan binatang buas bertaring", "Keutamaan sedekah"],
+            correct: "Haram memakan binatang buas bertaring"
+        },
+        {
+            text: "Berikut ini adalah orang-orang yang dikecualikan dari kewajiban shalat Jumat, kecuali...",
+            options: ["Anak kecil", "Orang sakit", "Hamba sahaya", "Laki-laki baligh yang sehat"],
+            correct: "Laki-laki baligh yang sehat"
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function startQuiz() {
+        const nama = document.getElementById('nama').value.trim();
+        const nim = document.getElementById('nim').value.trim();
+        const kelas = document.getElementById('kelas').value.trim();
+
+        if (!nama || !nim || !kelas) {
+            alert('Mohon lengkapi identitas terlebih dahulu.');
+            return;
+        }
+        currentQuestion = 0;
+        score = 0;
+        document.getElementById('page0').classList.add('hidden');
+        document.getElementById('resultPage').classList.add('hidden');
+        document.getElementById('icePage').classList.add('hidden');
+        document.getElementById('quiz').classList.remove('hidden');
+
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const q = questions[currentQuestion];
+        const container = document.getElementById('questionContainer');
+        container.innerHTML = `
+            <div class="question-box">
+                <p><strong>${currentQuestion + 1}. ${q.text}</strong></p>
+                ${q.options.map(opt => `
+                    <label>
+                        <input type="radio" name="q${currentQuestion}" value="${opt}" /> ${opt}
+                    </label><br>`).join('')}
+            </div>
+        `;
+    }
+
+    function nextQuestion() {
+        const selected = document.querySelector(`input[name='q${currentQuestion}']:checked`);
+        if (!selected) {
+            alert('Pilih salah satu jawaban terlebih dahulu!');
+            return;
+        }
+        if (selected.value === questions[currentQuestion].correct) {
+            score += 10;
+        }
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            showQuestion();
+        } else {
+            document.getElementById('quiz').classList.add('hidden');
+            document.getElementById('icePage').classList.remove('hidden');
+        }
+    }
+
+    function showEssay() {
+        const iceAnswer = document.getElementById('iceAnswer').value.trim().toLowerCase();
+        if (iceAnswer.includes('alqur\'an')) {
+            score += 10;
+        }
+
+        document.getElementById('icePage').classList.add('hidden');
+        document.getElementById('essayPage').classList.remove('hidden');
+    }
+
+    function showResult() {
+        const nama = document.getElementById('nama').value.trim();
+        const nim = document.getElementById('nim').value.trim();
+        const kelas = document.getElementById('kelas').value.trim();
+
+        const essayAnswers = [
+            document.getElementById('essay1').value.trim(),
+            document.getElementById('essay2').value.trim(),
+            document.getElementById('essay3').value.trim(),
+            document.getElementById('essay4').value.trim(),
+            document.getElementById('essay5').value.trim()
+        ];
+
+        const resultMessage = 
+`Nama: ${nama}
+NIM: ${nim}
+Kelas: ${kelas}
+Skor akhir: ${score} dari 100
+Jawaban Ice Breaking: ${document.getElementById('iceAnswer').value.trim()}
+Jawaban Essay: ${essayAnswers.join('\n')}`;
+
+        // Kirim pesan ke WhatsApp
+        const nomorGuru = "6285867944102";
+        const waLink = `https://wa.me/${nomorGuru}?text=${encodeURIComponent(resultMessage)}`;
+
+        window.open(waLink, '_blank');
+
+        document.getElementById('essayPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.remove('hidden');
+        document.getElementById('resultText').innerText = 
+            `Skor akhir kamu: ${score} dari 100\n\nPesan hasil sudah dibuka untuk dikirim ke WhatsApp guru.`;
+    }
+</script>
+</body>
+</html>

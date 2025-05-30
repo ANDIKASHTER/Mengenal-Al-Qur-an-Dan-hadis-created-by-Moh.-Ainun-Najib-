@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Hadis</title>
+    <style>
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: black; overflow: hidden;">
+    <div style="position: relative; width: 100%; height: 100vh;">
+        <!-- Generate stars -->
+        <script>
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        </script>
+        <div style="background: rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 20px; max-width: 600px; margin: 100px auto; text-align: center; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); border: 2px solid gold;">
+            <h1 style="color: #fff;">Selamat Datang di Halaman Hadis</h1>
+            <p style="color: #fff; line-height: 1.6;">
+                Hadis adalah sumber ajaran Islam yang kedua setelah Al-Qur’an. Hadis berisi perkataan, perbuatan, dan persetujuan Nabi Muhammad SAW yang menjadi petunjuk praktis dalam menjalankan ajaran Islam sehari-hari. Dengan mengenal dan memahami hadis, kita bisa lebih mudah mengaplikasikan nilai-nilai Islam dalam kehidupan nyata, karena hadis menjelaskan dan memperjelas apa yang telah Allah SWT firmankan dalam Al-Qur’an.
+            </p>
+            <p style="color: #fff; line-height: 1.6;">
+                Mengenal hadis juga membantu kita memahami sejarah, budaya, serta karakter mulia Nabi Muhammad SAW sebagai teladan terbaik bagi umat manusia. Oleh karena itu, penting bagi setiap muslim untuk mempelajari hadis dengan baik agar dapat meneladani sunnah Nabi dan meningkatkan kualitas keimanan serta amal ibadah.
+            </p>
+            <p style="color: #fff; line-height: 1.6;">
+                Mari kita mulai mengenal hadis lebih dekat, sehingga kita bisa mengambil manfaat besar dari warisan ilmu yang sangat berharga ini.
+            </p>
+            <a href="https://haditsarbain.com/" style="display: inline-block; padding: 15px 30px; margin-top: 20px; background-color: gold; color: white; text-decoration: none; border-radius: 5px; font-size: 18px; transition: background-color 0.3s;">Klik untuk Membaca Hadis</a>
+        </div>
+    </div>
+</body>
+</html>

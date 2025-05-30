@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Al-Qur'an</title>
+    <style>
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: black; overflow: hidden;">
+    <div style="position: relative; width: 100%; height: 100vh;">
+        <!-- Generate stars -->
+        <script>
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        </script>
+        <div style="background: rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 20px; max-width: 600px; margin: 100px auto; text-align: center; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); border: 2px solid gold;">
+            <h1 style="color: #fff;">Selamat Datang di Halaman Al-Qur'an</h1>
+            <p style="color: #fff; line-height: 1.6;">
+                Al-Qur’an adalah kitab suci yang diturunkan oleh Allah SWT sebagai petunjuk hidup bagi umat manusia. Di dalamnya terkandung ajaran, hikmah, dan pedoman yang lengkap untuk menjalani kehidupan yang penuh berkah dan kebahagiaan. Membaca Al-Qur’an bukan hanya sekadar kewajiban, tetapi juga merupakan sumber ketenangan hati, kekuatan spiritual, serta jalan untuk mendekatkan diri kepada Sang Pencipta.
+            </p>
+            <p style="color: #fff; line-height: 1.6;">
+                Dengan membaca Al-Qur’an secara rutin, kita dapat memperbaiki akhlak, menambah ilmu, dan menguatkan iman. Tidak hanya itu, Al-Qur’an juga menjadi penyejuk jiwa di tengah kesibukan dan tantangan hidup. Oleh karena itu, mari kita biasakan membaca dan memahami Al-Qur’an agar hidup kita senantiasa berada dalam bimbingan dan rahmat Allah SWT.
+            </p>
+            <a href="https://quran.kemenag.go.id/" style="display: inline-block; padding: 15px 30px; margin-top: 20px; background-color: gold; color: white; text-decoration: none; border-radius: 5px; font-size: 18px; transition: background-color 0.3s;">Klik untuk Membaca Al-Qur'an</a>
+        </div>
+    </div>
+</body>
+</html>
